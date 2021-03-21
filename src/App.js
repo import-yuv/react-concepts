@@ -1,4 +1,14 @@
 import React, { Component } from "react";
+/***
+ *  SYNTAX FOR React.CloneElement
+ *
+ *  React.CloneElement(element,props,[...children]);
+ *  element: the element which you want to clone
+ *  props:  value you want to pass as props
+ *  children : optional or the childern of the cloned object
+ *
+ *
+ */
 
 class Parent extends Component {
   constructor(props) {
@@ -31,18 +41,16 @@ class Hello extends Component {
   selectedButton = (selectedButton) => {
     this.setState({ selectedButton });
   };
+  newfunction = (child) =>
+    React.cloneElement(child, {
+      onClick: this.selectedButton.bind(this, child.props.value),
+    });
   render() {
-    let newfunction = (child) =>
-      React.cloneElement(child, {
-        onClick: this.selectedButton.bind(this, child.props.value),
-      });
-
-    let items = React.Children.map(this.props.children, newfunction);
+    let items = React.Children.map(this.props.children, this.newfunction);
 
     return (
       <>
         <h2>Children</h2>
-
         <h2>You Select:{this.state.selectedButton}</h2>
         {items}
       </>
